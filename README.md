@@ -1,8 +1,9 @@
 # RL-TNCO
 
-RL-TNCO is a reinforcement learning algorithm for solving the tensor network (TN) contraction problem. Specifically, this algorithm learns a good contraction order.
+RL-TNCO is a reinforcement learning algorithm for solving the tensor network (TN) contraction problem. The goal of this algorithm is to find a good contraction order.
 
-You can read more about it in our [paper](https://proceedings.mlr.press/v162/meirom22a/meirom22a.pdf). To learn more about tensor network in. These [resources](https://stable-baselines3.readthedocs.io/en/master/guide/rl.html) are recommended for a gentle introduction on reinforcement learning.
+You can read about it in more details in our [paper](https://proceedings.mlr.press/v162/meirom22a/meirom22a.pdf). To learn more about tensor network, consider reviewing [this](https://docs.nvidia.com/cuda/cuquantum/cutensornet/overview.html#introduction-to-tensor-networks). 
+For a gentle introduction on reinforcement learning, we recommended these [resources](https://stable-baselines3.readthedocs.io/en/master/guide/rl.html).
 
 ## Prerequisites
 
