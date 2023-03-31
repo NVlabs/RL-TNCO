@@ -1,0 +1,42 @@
+FROM gitlab-master.nvidia.com:5005/ahehn/docker-repo/x86_64-ubuntu20.04-gcc-cuda11.2_internal_quimb:20210401
+
+RUN apt-get update &&  apt-get install -y \
+    curl \
+    ca-certificates \
+    vim \
+    sudo \
+    git \
+    bzip2 \
+    libx11-6 \
+    build-essential \
+    ffmpeg \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install torch==1.9.1+cu111 torchvision==0.10.1+cu111 torchaudio===0.9.1 -f https://download.pytorch.org/whl/torch_stable.html
+
+# Install PyTorch Geometric.
+RUN CPATH=/usr/local/cuda/include:$CPATH \
+ && LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH \
+ && DYLD_LIBRARY_PATH=/usr/local/cuda/lib:$DYLD_LIBRARY_PATH
+
+RUN pip3 install torch-scatter -f https://data.pyg.org/whl/torch-1.9.1+cu111.html
+RUN pip3 install torch-sparse -f https://data.pyg.org/whl/torch-1.9.1+cu111.html
+RUN pip3 install torch-cluster -f https://data.pyg.org/whl/torch-1.9.1+cu111.html
+RUN pip3 install torch-spline-conv -f https://data.pyg.org/whl/torch-1.9.1+cu111.html
+RUN pip3 install torch-geometric
+
+RUN pip3 install wandb networkx networkit --upgrade
+ENV WANDB_API_KEY=2f5df6898bedbbb08087c201d9788455b170fd98
+ENV LC_ALL=C.UTF-8 
+ENV LANG=C.UTF-8
+RUN pip3 install pooch==1.1.1
+RUN pip3 install gym
+RUN pip3 install tensorboard ordered-set
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+RUN git lfs install
+RUN mkdir -p /data
+COPY data/ /data
+RUN pip3 install ogb
+RUN apt-get -y install xauth
+RUN pip3 install jupyterlab
+EXPOSE 8887
